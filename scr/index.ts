@@ -2,10 +2,17 @@ import express from "express";
 const app = express();
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-import { UserModel } from "./db";
+import { ContenModel, UserModel } from "./db";
 import bcrypt from "bcrypt";
 import { z } from "zod";
-const JWT_SECRET = "hheks221jjd";
+
+import { userMiddleware } from "./middleware";
+
+import dotenv from "dotenv";
+
+dotenv.config();
+const JWT_SECRET = process.env.JWT_SECRET as string;
+
 
 app.use(express.json());
 
@@ -74,8 +81,24 @@ app.post("/api/v1/signin", async (req, res) => {
 });
 
 
-app.post("/api/v1/content", (req, res) => {
+app.post("/api/v1/content", userMiddleware, async (req, res) => {
+    //@ts-ignore
+    console.log(req.userId);
+    const { type, link,  title } = req.body;
+    console.log(req.body);
+    await ContenModel.create({
+        type,
+        link,
+        title,
+        tags : [],
+        //@ts-ignore
+        userId : req.userId
+    });
 
+    res.json({
+        message : "Cnotent added"
+    });
+    
 });
 
 app.get("/api/v1/contents", (req, res) => {
