@@ -1,4 +1,3 @@
-
 interface PlusIconProps {
     size : "md" | "sm" | "lg"
 };
@@ -16,6 +15,4 @@ export const PlusIcon = (props: PlusIconProps) => {
         </svg>
     )
 }
-
-
 

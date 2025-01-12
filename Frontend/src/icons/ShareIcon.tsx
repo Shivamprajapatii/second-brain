@@ -1,13 +1,11 @@
 interface ShareIconProps {
     size : "md" | "sm" | "lg"
 };
-
 const sizeVariants = {
     "lg" : "size-6",
     "md" : "size-4",
     "sm" : "size-2"
 }
-
 
 export const ShareInco = (props : ShareIconProps) => {
     return (
