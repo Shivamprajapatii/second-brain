@@ -1,14 +1,11 @@
 import express from "express";
 const app = express();
 import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
 import { ContenModel, LinkModel, UserModel } from "./db";
 import bcrypt from "bcrypt";
 import { z } from "zod";
 import { v4 as uuidv4 } from 'uuid';
-
 import { userMiddleware } from "./middleware";
-
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -107,7 +104,7 @@ app.get("/api/v1/contents", userMiddleware, async (req, res) => {
 
     try {
         const contentData = await ContenModel.find({ userId }).populate("userId");
-        console.log(contentData);
+        
         if (!contentData) {
             res.send({ message: "data not found" });
         } else {
@@ -140,16 +137,16 @@ app.post("/api/v1/brain/share", userMiddleware, async (req, res) => {
         if (existingLink) {
             res.json({
                 hash: existingLink.hash
-            })
+            });
             return
-        }
+        };
 
         const hash = uuidv4()
         await LinkModel.create({
             // @ts-ignore
             userId: req.userId,
             hash : hash
-        })
+        });
         res.json({
             message: "/share/" + hash
         });
@@ -164,7 +161,7 @@ app.post("/api/v1/brain/share", userMiddleware, async (req, res) => {
             message: "Remove Share link",
             share
         });
-    }
+    };
 
 });
 
@@ -179,7 +176,7 @@ app.get("/api/v1/brain/:shareLink", async (req, res) => {
             message: "sorry incorrect url"
         });
         return;
-    }
+    };
 
     const content = await ContenModel.find({
         userId: link.userId
@@ -194,15 +191,15 @@ app.get("/api/v1/brain/:shareLink", async (req, res) => {
             message: "user not found, error should ideally not happed"
         });
         return
-    }
+    };
 
     res.json({
         //@ts-ignore
         username: user.username,
         content: content
     });
-})
+});
 
 app.listen(4000, () => {
     console.log(`server is listning on port 4000`);
-})
+});

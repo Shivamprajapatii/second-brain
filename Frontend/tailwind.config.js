@@ -6,10 +6,14 @@ export default {
   ],
   theme: {
     extend: {
-      colors : {
+      colors :{
+        gray : {
+          100 : "#eeeeef",
+          200 : "#e6e9ed"
+        }, 
         purple : {
-          300 : "#e0e7fe",
-          500 :"#3e38a7",
+          200 : "#dee7fe",
+          500 : "#9492db",
           600 : "#5046e4"
         }
       }
