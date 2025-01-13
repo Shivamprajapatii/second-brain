@@ -2,9 +2,10 @@ import express from "express";
 const app = express();
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-import { ContenModel, UserModel } from "./db";
+import { ContenModel, LinkModel, UserModel } from "./db";
 import bcrypt from "bcrypt";
 import { z } from "zod";
+import { v4 as uuidv4 } from 'uuid';
 
 import { userMiddleware } from "./middleware";
 
@@ -81,7 +82,6 @@ app.post("/api/v1/signin", async (req, res) => {
 
 });
 
-
 app.post("/api/v1/content", userMiddleware, async (req, res) => {
     //@ts-ignore
     const { type, link, title } = req.body;
@@ -130,9 +130,78 @@ app.delete("/api/v1/content", userMiddleware, async (req, res) => {
     res.json({ message: "Data Deleted Successfully!" });
 });
 
-app.post("/api/v1/brain/share", (req, res) => {
+app.post("/api/v1/brain/share", userMiddleware, async (req, res) => {
+    const share = req.body.share;
+    if (share) {
+        const existingLink = await LinkModel.findOne({
+            //@ts-ignore
+            userId: req.userId,
+        });
+        if (existingLink) {
+            res.json({
+                hash: existingLink.hash
+            })
+            return
+        }
+
+        const hash = uuidv4()
+        await LinkModel.create({
+            // @ts-ignore
+            userId: req.userId,
+            hash : hash
+        })
+        res.json({
+            message: "/share/" + hash
+        });
+
+    } else {
+        await LinkModel.deleteOne({
+            // @ts-ignore
+            userId: req.userId,
+        });
+
+        res.json({
+            message: "Remove Share link",
+            share
+        });
+    }
 
 });
+
+app.get("/api/v1/brain/:shareLink", async (req, res) => {
+    const hash = req.params.shareLink;
+    
+    const link = await LinkModel.findOne({
+        hash: hash
+    });
+    if (!link) {
+        res.status(411).json({
+            message: "sorry incorrect url"
+        });
+        return;
+    }
+
+    const content = await ContenModel.find({
+        userId: link.userId
+    });
+
+    const user = await UserModel.findOne({
+        _id: link.userId
+    });
+    
+    if (!user) {
+        res.status(411).json({
+            message: "user not found, error should ideally not happed"
+        });
+        return
+    }
+
+    res.json({
+        //@ts-ignore
+        username: user.username,
+        content: content
+    });
+})
 
 app.listen(4000, () => {
     console.log(`server is listning on port 4000`);
