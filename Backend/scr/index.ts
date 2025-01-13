@@ -42,63 +42,63 @@ app.post("/api/v1/signup", async (req, res) => {
 
 });
 
-    app.post("/api/v1/signin", async (req, res) => {
-        const signinSchema = z.object({
-            username: z.string().min(3, "Username must be at least 3 characters long"),
-            password: z.string().min(5, "Password must be at least 8 characters long"),
+app.post("/api/v1/signin", async (req, res) => {
+    const signinSchema = z.object({
+        username: z.string().min(3, "Username must be at least 3 characters long"),
+        password: z.string().min(5, "Password must be at least 8 characters long"),
+    });
+
+    const { username, password } = signinSchema.parse(req.body);
+
+    try {
+        const existingUser = await UserModel.findOne({
+            username: username,
         });
 
-        const { username, password } = signinSchema.parse(req.body);
-
-        try {
-            const existingUser = await UserModel.findOne({
-                username: username,
-            });
-
-            if (!existingUser) {
-                res.status(403).json({ message: "User not exist" });
-                return;
-            }
-
-            const passMatch = await bcrypt.compare(password, existingUser.password);
-
-            if (passMatch) {
-                const token = jwt.sign({
-                    id: existingUser._id,
-                }, JWT_SECRET);
-
-                res.status(200).json(token);
-
-            } else {
-                res.status(403).json({
-                    message: "incoorect credentials"
-                })
-            }
-
-        } catch (error) {
-            res.status(404).json({ message: "User not found" });
+        if (!existingUser) {
+            res.status(403).json({ message: "User not exist" });
+            return;
         }
 
-    });
+        const passMatch = await bcrypt.compare(password, existingUser.password);
+
+        if (passMatch) {
+            const token = jwt.sign({
+                id: existingUser._id,
+            }, JWT_SECRET);
+
+            res.status(200).json(token);
+
+        } else {
+            res.status(403).json({
+                message: "incoorect credentials"
+            })
+        }
+
+    } catch (error) {
+        res.status(404).json({ message: "User not found" });
+    }
+
+});
 
 
 app.post("/api/v1/content", userMiddleware, async (req, res) => {
     //@ts-ignore
-    const { type, link,  title } = req.body;
-    
+    const { type, link, title } = req.body;
+
     await ContenModel.create({
         type,
         link,
         title,
-        tags : [],
+        tags: [],
         //@ts-ignore
-        userId : req.userId
+        userId: req.userId
     });
 
     res.json({
-        message : "Cnotent added"
+        message: "Cnotent added"
     });
-    
+
 });
 
 app.get("/api/v1/contents", userMiddleware, async (req, res) => {
@@ -108,12 +108,12 @@ app.get("/api/v1/contents", userMiddleware, async (req, res) => {
     try {
         const contentData = await ContenModel.find({ userId }).populate("userId");
         console.log(contentData);
-        if(!contentData){
-            res.send({message : "data not found"});
+        if (!contentData) {
+            res.send({ message: "data not found" });
         } else {
             res.json(contentData);
         }
-      
+
     } catch (error) {
         console.log(error);
     }
@@ -121,16 +121,16 @@ app.get("/api/v1/contents", userMiddleware, async (req, res) => {
 
 app.delete("/api/v1/content", userMiddleware, async (req, res) => {
     const { contentId } = req.body;
-    
+
     await ContenModel.deleteMany({
-        contentId : contentId,
+        contentId: contentId,
         //@ts-ignore
-        userId : req.userId
+        userId: req.userId
     });
-    res.json({message:"Data Deleted Successfully!"});
+    res.json({ message: "Data Deleted Successfully!" });
 });
 
-app.post("/api/v1/brain/share", (req,res) => {
+app.post("/api/v1/brain/share", (req, res) => {
 
 });
 
