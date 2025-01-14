@@ -200,6 +200,8 @@ app.get("/api/v1/brain/:shareLink", async (req, res) => {
     });
 });
 
-app.listen(4000, () => {
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
     console.log(`server is listning on port 4000`);
 });
