@@ -9,12 +9,13 @@ export default {
       colors :{
         gray : {
           100 : "#eeeeef",
-          200 : "#e6e9ed"
+          200 : "#e6e9ed",
+          600 : "#95989c"
         }, 
         purple : {
           200 : "#dee7fe",
           500 : "#9492db",
-          600 : "#5046e4"
+          600 : "#5045e4"
         }
       }
     },
