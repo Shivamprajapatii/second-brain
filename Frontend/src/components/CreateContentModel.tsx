@@ -18,9 +18,11 @@ export function CreateContentModel({ open, onClose }) {
                             <InputComponet type="text" placholder={"title"} />
                             <InputComponet type={"Link"} placholder={"URL"} />
                         </div>
+                        
                         <div className="flex justify-center">
-                        <Button title="Submit" variant="primary" />
+                            <Button title="Submit" variant="primary" />
                         </div>
+
                     </span>
                 </div>
             </div>}
@@ -35,7 +37,7 @@ export function CreateContentModel({ open, onClose }) {
 //     onChange: () => void;
 // }
 
-function InputComponet({ placholder, onChange } : {onChange() : () => void }) {
+function InputComponet({ placholder, onChange }: { onChange(): () => void }) {
     return (
         <div>
             <input type={"text"} placeholder={placholder} className="p-2 border rounded-md m-1 " onChange={onChange} />
