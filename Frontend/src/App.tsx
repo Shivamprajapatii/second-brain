@@ -2,13 +2,23 @@ import { Button } from "./components/Button"
 import ShareIcon from "./icons/ShareIcon"
 import PlusIcon from "./icons/PlusIcon"
 import { Card } from "./components/Card"
+import { CreateContentModel } from "./components/CreateContentModel"
+import { useState } from "react"
 
 function App() {
+  const [modelOpen, setOpenModel] = useState(true);
   return (
     <div className="p-4">
 
+       <CreateContentModel open={modelOpen} onClose={ () => {
+          setOpenModel(false);
+       }}/>
+
       <div className="flex justify-end gap-4">
-        {<Button variant="secondary" title="Add content" startIcon={<PlusIcon />} />}
+        {<Button variant="secondary" title="Add content" onClick={() => {
+          setOpenModel(true);
+        }} startIcon={<PlusIcon />} />}
+        
         {<Button variant="primary" title="Share brain" startIcon={<ShareIcon />} />}
       </div>
 
