@@ -5,6 +5,7 @@ interface ButtonProps {
     title: string,
     startIcon ?: ReactElement,
     onClick ?: () => void;
+    fullWidth ? : boolean;
 }
 
 const variantClass = {
@@ -14,9 +15,10 @@ const variantClass = {
 
 const defaultStyle = "px-4 py-2 m-2 rounded-md font-normal flex items-center";
 
-export const Button = ({ variant, title, startIcon, onClick }: ButtonProps) => {
+export const Button = ({ variant, title, startIcon, onClick, fullWidth }: ButtonProps) => {
     return (
-        <button onClick={onClick} className={variantClass[variant] + " " + defaultStyle}>
+        <button onClick={onClick} className={variantClass[variant] + " " + defaultStyle + 
+        `${fullWidth ? " w-full flex justify-center items-center" : ""}`}>
             <div className="pr-2">
                 {startIcon}
             </div>

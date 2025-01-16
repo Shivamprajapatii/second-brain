@@ -1,6 +1,6 @@
 import { CloseIcon } from "../icons/CloseIcon";
 import { Button } from "./Button";
-
+import { Input} from "./Input";
 
 export function CreateContentModel({ open, onClose }) {
     return (
@@ -15,8 +15,8 @@ export function CreateContentModel({ open, onClose }) {
                         </div>
 
                         <div>
-                            <InputComponet type="text" placholder={"title"} />
-                            <InputComponet type={"Link"} placholder={"URL"} />
+                            <Input  placholder={"title"} />
+                            <Input  placholder={"URL"} />
                         </div>
                         
                         <div className="flex justify-center">
@@ -31,16 +31,3 @@ export function CreateContentModel({ open, onClose }) {
 };
 
 
-// interface Input {
-//     type: string;
-//     placholder: string;
-//     onChange: () => void;
-// }
-
-function InputComponet({ placholder, onChange }: { onChange(): () => void }) {
-    return (
-        <div>
-            <input type={"text"} placeholder={placholder} className="p-2 border rounded-md m-1 " onChange={onChange} />
-        </div>
-    )
-}
