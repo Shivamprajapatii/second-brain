@@ -1,12 +1,12 @@
-interface Input {
+interface InputProps {
     placholder: string;
-    onChange: () => void;
+    refrence ? : any;
 }
 
-export function Input({ placholder, onChange }: Input ) {
+export function Input({ placholder, refrence}: InputProps ) {
     return (
         <div>
-            <input type={"text"} placeholder={placholder} className="p-2 border rounded-md m-1 " onChange={onChange} />
+            <input ref={refrence} type={"text"} placeholder={placholder} className="p-2 border rounded-md m-1 " />
         </div>
     )
 }

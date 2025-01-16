@@ -7,17 +7,19 @@ import { z } from "zod";
 import { v4 as uuidv4 } from 'uuid';
 import { userMiddleware } from "./middleware";
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
 
 app.use(express.json());
+app.use(cors());
 
 app.post("/api/v1/signup", async (req, res) => {
     const signupSchema = z.object({
         username: z.string().min(3, "Username must be at least 3 characters long"),
-        password: z.string().min(5, "Password must be at least 8 characters long"),
+        password: z.string().min(5, "Password must be at least 3 characters long"),
     });
 
     const { username, password } = signupSchema.parse(req.body);
@@ -202,6 +204,10 @@ app.get("/api/v1/brain/:shareLink", async (req, res) => {
 
 const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, () => {
-    console.log(`server is listning on port 4000`);
-});
+try {
+    app.listen(PORT, () => {
+        console.log(`Server is running on http://localhost:${PORT}`);
+    });
+} catch (error) {
+    console.error("Failed to start server:", error);
+}
