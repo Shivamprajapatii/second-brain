@@ -3,11 +3,18 @@ import ShareIcon from "../icons/ShareIcon"
 import PlusIcon from "../icons/PlusIcon"
 import { Card } from "../components/Card"
 import { CreateContentModel } from "../components/CreateContentModel"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { SideBar } from "../components/SideBar"
+import { useContent } from "../hooks/useContent"
 
 export function Dashboard() {
   const [modelOpen, setOpenModel] = useState(false);
+  const {contents,refresh} = useContent();
+
+  useEffect(()=> {
+    refresh();
+  }, [modelOpen]);
+
   return (
     <div>
       < SideBar />
@@ -26,12 +33,18 @@ export function Dashboard() {
         </div>
 
         <div className="flex flex-wrap gap-5 mt-3">
-          < Card title="Twiter Post" type="twitter" link="https://twitter.com/username/status/807811447862468608" />
-          < Card title="Youtube Post" type="youtube" link="https://www.youtube.com/watch?v=OYkmIIKfWq4&t=2792s" />
+         
+          { contents.map(({type,title, link}) => < Card 
+              title={title} 
+              type={type} 
+              link={link} 
+            />
+          )}
+         
         </div>
       </div>
 
     </div>
   )
-}
+};
 

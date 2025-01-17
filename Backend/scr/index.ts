@@ -94,7 +94,7 @@ app.post("/api/v1/content", userMiddleware, async (req, res) => {
         userId: req.userId
     });
 
-    res.json({
+    res.status(400).json({
         message: "Cnotent added"
     });
 
@@ -106,7 +106,6 @@ app.get("/api/v1/contents", userMiddleware, async (req, res) => {
 
     try {
         const contentData = await ContenModel.find({ userId }).populate("userId");
-        
         if (!contentData) {
             res.send({ message: "data not found" });
         } else {
