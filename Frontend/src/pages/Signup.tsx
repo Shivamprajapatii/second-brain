@@ -25,6 +25,7 @@ export function Signup() {
     return (
         <div className="h-screen w-screen bg-gray-200 flex items-center justify-center">
             <div className="bg-white border min-w-48 p-8 rounded-xl">
+            <h3>Signup</h3>
                 <Input refrence={usernameRef} placholder="Username" />
                 <Input refrence={passwordRef} placholder="Password" />
                 <div className="flex justify-center">

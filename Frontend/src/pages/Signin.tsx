@@ -22,13 +22,14 @@ export function Signin() {
         const jwt = response.data;
         localStorage.setItem("token",jwt);
 
-        navigate("/dashboard");
+        navigate("/");
         
     };
 
     return (
         <div className="h-screen w-screen bg-gray-200 flex items-center justify-center">
             <div className="bg-white border min-w-48 p-8 rounded-xl">
+            <h3>Signin</h3>
                 <Input refrence={usernameRef} placholder="Username" />
                 <Input refrence={passwordRef} placholder="Password" />
                 <div className="flex justify-center">
