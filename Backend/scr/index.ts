@@ -120,12 +120,22 @@ app.get("/api/v1/contents", userMiddleware, async (req, res) => {
 app.delete("/api/v1/content", userMiddleware, async (req, res) => {
     const { contentId } = req.body;
 
-    await ContenModel.deleteMany({
-        contentId: contentId,
-        //@ts-ignore
-        userId: req.userId
-    });
-    res.json({ message: "Data Deleted Successfully!" });
+    try {
+        const deletedContent = await ContenModel.findOneAndDelete({
+            contentId: contentId,
+            //@ts-ignore
+            userId: req.userId
+        });
+        
+        if(!deletedContent){
+            res.status(404).json({ message: "Content not found or unauthorized" });
+        }
+    
+        res.json({ message: "Content Deleted Successfully!" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "An error occurred while deleting content" });
+    }   
 });
 
 app.post("/api/v1/brain/share", userMiddleware, async (req, res) => {
