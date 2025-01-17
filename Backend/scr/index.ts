@@ -21,13 +21,11 @@ app.post("/api/v1/signup", async (req, res) => {
         username: z.string().min(3, "Username must be at least 3 characters long"),
         password: z.string().min(5, "Password must be at least 3 characters long"),
     });
-
     const { username, password } = signupSchema.parse(req.body);
 
-    const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(password, salt);
-
     try {
+        const salt = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(password, salt);
         const data = await UserModel.create({
             username,
             password: hashPassword
@@ -47,7 +45,6 @@ app.post("/api/v1/signin", async (req, res) => {
         username: z.string().min(3, "Username must be at least 3 characters long"),
         password: z.string().min(5, "Password must be at least 8 characters long"),
     });
-
     const { username, password } = signinSchema.parse(req.body);
 
     try {
@@ -139,75 +136,84 @@ app.delete("/api/v1/content", userMiddleware, async (req, res) => {
 
 app.post("/api/v1/brain/share", userMiddleware, async (req, res) => {
     const share = req.body.share;
-    if (share) {
-        const existingLink = await LinkModel.findOne({
-            //@ts-ignore
-            userId: req.userId,
-        });
-        if (existingLink) {
-            res.json({
-                hash: existingLink.hash
+
+    try {
+        if (share) {
+            const existingLink = await LinkModel.findOne({
+                //@ts-ignore
+                userId: req.userId,
             });
-            return
+            if (existingLink) {
+                res.json({
+                    hash: existingLink.hash
+                });
+                return
+            };
+    
+            const hash = uuidv4()
+            await LinkModel.create({
+                // @ts-ignore
+                userId: req.userId,
+                hash : hash
+            });
+            res.json({
+                message: "/share/" + hash
+            });
+    
+        } else {
+            await LinkModel.deleteOne({
+                // @ts-ignore
+                userId: req.userId,
+            });
+    
+            res.json({
+                message: "Remove Share link",
+                share
+            });
         };
-
-        const hash = uuidv4()
-        await LinkModel.create({
-            // @ts-ignore
-            userId: req.userId,
-            hash : hash
-        });
-        res.json({
-            message: "/share/" + hash
-        });
-
-    } else {
-        await LinkModel.deleteOne({
-            // @ts-ignore
-            userId: req.userId,
-        });
-
-        res.json({
-            message: "Remove Share link",
-            share
-        });
-    };
+    } catch (error) {
+        res.status(4000).json({message:"Eroor occur during share the brain link"})
+    }
 
 });
 
 app.get("/api/v1/brain/:shareLink", async (req, res) => {
     const hash = req.params.shareLink;
     
-    const link = await LinkModel.findOne({
-        hash: hash
-    });
-    if (!link) {
-        res.status(411).json({
-            message: "sorry incorrect url"
+    try {
+        const link = await LinkModel.findOne({
+            hash: hash
         });
-        return;
-    };
-
-    const content = await ContenModel.find({
-        userId: link.userId
-    });
-
-    const user = await UserModel.findOne({
-        _id: link.userId
-    });
+        if (!link) {
+            res.status(411).json({
+                message: "sorry incorrect url"
+            });
+            return;
+        };
     
-    if (!user) {
-        res.status(411).json({
-            message: "user not found, error should ideally not happed"
+        const content = await ContenModel.find({
+            userId: link.userId
         });
-        return
-    };
+    
+        const user = await UserModel.findOne({
+            _id: link.userId
+        });
+        
+        if (!user) {
+            res.status(411).json({
+                message: "user not found, error should ideally not happed"
+            });
+            return
+        };
 
-    res.json({
-        //@ts-ignore
-        username: user.username,
-        content: content
-    });
+        res.json({
+            //@ts-ignore
+            username: user.username,
+            content: content
+        });
+    } catch (error) {
+        res.status(4000).json({message:"Eroor occur during share the brain link"})
+    }
 });
 
 const PORT = process.env.PORT || 4000;
