@@ -1,6 +1,8 @@
 import ShareIcon from "../icons/ShareIcon";
 import { DeleteIcon } from "../icons/Delete";
 import { NoteBook } from "../icons/Notebook";
+import axios from "axios";
+import { BACKEND_URL } from "../config";
 
 
 interface CardProps {
@@ -27,7 +29,13 @@ export function Card({ title, link, type }: CardProps) {
                             < ShareIcon />
                         </a>
                     </div>
-                    <div className="pr-4">
+                    <div className="pr-4 cursor-pointer" onClick={() => {
+                        axios.delete(`${BACKEND_URL}/api/v1/content`,{
+                            headers : {
+                                Authorization : localStorage.getItem("token")
+                            }
+                        });
+                    }}>
                         <DeleteIcon />
                     </div>
                 </div>
@@ -54,7 +62,7 @@ export function Card({ title, link, type }: CardProps) {
                         return null;
                     }
                 })()}
-                
+
                 {type === "twitter" && <blockquote className="twitter-tweet">
                     <a href={link.replace("x.com", "twitter.com")}></a>
                 </blockquote>
