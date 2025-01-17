@@ -1,5 +1,4 @@
 import { ReactElement } from "react";
-import { SideBar } from "./SideBar";
 
 export default function ({ text, icon }: {
   text: string,
