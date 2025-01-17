@@ -82,7 +82,6 @@ app.post("/api/v1/signin", async (req, res) => {
 });
 
 app.post("/api/v1/content", userMiddleware, async (req, res) => {
-    //@ts-ignore
     const { type, link, title } = req.body;
 
     await ContenModel.create({
@@ -95,7 +94,7 @@ app.post("/api/v1/content", userMiddleware, async (req, res) => {
     });
 
     res.status(400).json({
-        message: "Cnotent added"
+        message: "Cnotent added Successfully"
     });
 
 });

@@ -13,7 +13,7 @@ interface CardProps {
 
 export function Card({ title, link, type }: CardProps) {
     return (
-        <div className="p-4 bg-white rounded-md border-gray-200 max-w-72 border min-h-48">
+        <div className="p-4 bg-white rounded-md border-purple-800 max-w-72 border min-h-48">
             <div className="flex justify-between">
                 <div className="flex items-center">
                     <div className="pl-1">
@@ -40,7 +40,7 @@ export function Card({ title, link, type }: CardProps) {
                     </div>
                 </div>
             </div>
-            <div className="pt-4">
+            <div className="pt-6">
 
                 {type === "youtube" && link && (() => {
                     try {
@@ -48,7 +48,7 @@ export function Card({ title, link, type }: CardProps) {
                         const embedUrl = `https://www.youtube.com/embed/${videoId}`;
                         return (
                             <iframe
-                                className="w-full"
+                                className="w-full h-48"
                                 src={embedUrl}
                                 title="YouTube video player"
                                 frameBorder="0"
@@ -63,7 +63,7 @@ export function Card({ title, link, type }: CardProps) {
                     }
                 })()}
 
-                {type === "twitter" && <blockquote className="twitter-tweet">
+                {type === "twitter" && <blockquote className="twitter-tweet h-48 w-5">
                     <a href={link.replace("x.com", "twitter.com")}></a>
                 </blockquote>
                 }

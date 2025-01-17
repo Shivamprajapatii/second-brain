@@ -6,6 +6,8 @@ import { CreateContentModel } from "../components/CreateContentModel"
 import { useEffect, useState } from "react"
 import { SideBar } from "../components/SideBar"
 import { useContent } from "../hooks/useContent"
+import axios from "axios"
+import { BACKEND_URL } from "../config"
 
 export function Dashboard() {
   const [modelOpen, setOpenModel] = useState(false);
@@ -19,22 +21,35 @@ export function Dashboard() {
     <div>
       < SideBar />
 
-      <div className="p-4 ml-72 min-h-screen bg-gray-100 border-1">
+      <div className="p-4 ml-64 min-h-screen bg-gray-100 border-1">
         <CreateContentModel open={modelOpen} onClose={() => {
           setOpenModel(false);
         }} />
 
-        <div className="flex justify-end gap-4">
+        <div className="flex justify-end">
           {<Button variant="secondary" title="Add content" onClick={() => {
             setOpenModel(true);
           }} startIcon={<PlusIcon />} />}
 
-          {<Button variant="primary" title="Share brain" startIcon={<ShareIcon />} />}
+          {<Button variant="primary" title="Share brain" startIcon={<ShareIcon />} onClick={async() => {
+            const responce = await axios.post(`${BACKEND_URL}/api/v1/brain/share`,{
+               share : true,              
+            }, {
+              headers : {
+                Authorization : localStorage.getItem("token")
+              }
+            }); 
+            
+            const ShareUrl = `http:localhost:4000/api/v1/brain/${responce.data.hash}`
+            alert(ShareUrl);
+            
+          }} />}
         </div>
 
         <div className="flex flex-wrap gap-5 mt-3">
          
-          { contents.map(({type,title, link}) => < Card 
+          { contents.map(({type,title, link}, index) => < Card 
+              key={index}
               title={title} 
               type={type} 
               link={link} 

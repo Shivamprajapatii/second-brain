@@ -1,5 +1,4 @@
 import { ReactElement } from "react";
-
 export default function ({ text, icon }: {
   text: string,
   icon: ReactElement;

@@ -1,5 +1,4 @@
 import mongoose, { Mongoose } from "mongoose";
-import { string } from "zod";
 import dotenv from "dotenv";
 
 dotenv.config();
