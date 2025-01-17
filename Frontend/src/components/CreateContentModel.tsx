@@ -11,7 +11,13 @@ enum ContentType {
     Instagram = "instagram" 
 }
 
-export function CreateContentModel({ open, onClose }) {
+interface CreateContentModelProps {
+    open : any;
+    onClose : any;
+}
+
+
+export function CreateContentModel({ open, onClose } : CreateContentModelProps) {
     const titleRef = useRef<HTMLInputElement>();
     const linkRef = useRef<HTMLInputElement>();
     const [type, setType] = useState(ContentType.Youtube);
