@@ -8,12 +8,11 @@ import { SideBar } from "../components/SideBar"
 import { useContent } from "../hooks/useContent"
 import axios from "axios"
 import { BACKEND_URL } from "../config"
-import { useNavigate } from "react-router-dom"
+import AuthButton from "../auth/AuthButtun"
 
 export function Dashboard() {
   const [modelOpen, setOpenModel] = useState(false);
   const { contents, refresh } = useContent();
-  const navigate = useNavigate();
 
   useEffect(() => {
     refresh();
@@ -42,18 +41,12 @@ export function Dashboard() {
               }
             });
 
-            const ShareUrl = `http:localhost:4000/api/v1/brain/${responce.data.hash}`
+            const ShareUrl = `${BACKEND_URL}/api/v1/brain/${responce.data.hash}`
             alert(ShareUrl);
 
           }} />}
-          
-          <Button title="Signup" variant="primary" onClick={() => {
-            navigate("/signup");
-          }} />
 
-          <Button title="logout" variant="dangour" onClick={() => {
-            localStorage.removeItem("token");
-          }} />
+          <AuthButton />
 
         </div>
 
