@@ -10,26 +10,26 @@ export function Signin() {
     const passwordRef = useRef<HTMLInputElement>();
     const navigate = useNavigate();
 
-    async function signin(){
+    async function signin() {
         const username = usernameRef.current?.value;
         const password = passwordRef.current?.value;
 
-        const response =  await axios.post(`${BACKEND_URL}/api/v1/signin`,{
+        const response = await axios.post(`${BACKEND_URL}/api/v1/signin`, {
             username,
             password
         });
 
         const jwt = response.data;
-        localStorage.setItem("token",jwt);
+        localStorage.setItem("token", jwt);
 
         navigate("/");
-        
+
     };
 
     return (
         <div className="h-screen w-screen bg-gray-200 flex items-center justify-center">
             <div className="bg-white border min-w-48 p-8 rounded-xl">
-            <h3>Signin</h3>
+                <h3 className="font-bold text-3xl text-center pb-6">SignIn</h3>
                 <Input refrence={usernameRef} placholder="Username" />
                 <Input refrence={passwordRef} placholder="Password" />
                 <div className="flex justify-center">

@@ -73,7 +73,7 @@ export function CreateContentModel({ open, onClose } : CreateContentModelProps) 
                                 </div>
                             </div>
                             <div className="flex justify-center">
-                                <Button onClick={addContent} title="Add Content" variant="primary" />
+                                <Button onClick={addContent} title="Add Content" variant="dangour" />
                             </div>
 
                         </span>

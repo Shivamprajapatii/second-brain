@@ -6,7 +6,7 @@ interface InputProps {
 export function Input({ placholder, refrence}: InputProps ) {
     return (
         <div>
-            <input ref={refrence} type={"text"} placeholder={placholder} className="p-2 border rounded-md m-1 " />
+            <input ref={refrence} type={"text"} placeholder={placholder} className="p-2 border rounded-md m-1 lg w-full " />
         </div>
     )
 }
