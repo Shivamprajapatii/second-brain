@@ -1,4 +1,3 @@
-import { useContent } from "../hooks/useContent";
 import { BrainLogo } from "../icons/BrainLogo";
 import { Instagram } from "../icons/InstagramIcon";
 import { TwitterIcon } from "../icons/Twitter";
