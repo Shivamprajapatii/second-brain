@@ -15,7 +15,6 @@ const JWT_SECRET = process.env.JWT_SECRET as string;
 
 app.use(express.json());
 app.use(cors());
-app.use(cors({ origin: "https://second-brain-two-sand.vercel.app" }));
 
 app.post("/api/v1/signup", async (req, res) => {
     const signupSchema = z.object({
