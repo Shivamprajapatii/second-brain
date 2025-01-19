@@ -31,7 +31,9 @@ export function Signup() {
                 <div className="flex justify-center">
                     <Button onClick={signup} variant="primary" title="Signup" fullWidth={true} />
                 </div>
-                <Link to="/signin">already have account</Link>
+                 <div className="text-center">
+                    <Link to="/signin">already have account</Link>
+                 </div>
             </div>
         </div>
     )

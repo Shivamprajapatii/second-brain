@@ -13,22 +13,28 @@ import AuthButton from "../auth/AuthButtun"
 export function Dashboard() {
   const [modelOpen, setOpenModel] = useState(false);
   const { contents, refresh } = useContent();
+  const [filterType, setFilterType] = useState<string | null>(null);
 
   useEffect(() => {
     refresh();
   }, [modelOpen]);
 
+  const filteredContents = filterType
+    ? contents.filter((content) => content.type === filterType)
+    : contents;
+
+
   return (
     <div>
-      < SideBar />
+      < SideBar onSelect={setFilterType} />
 
       <div className="p-4 ml-64 min-h-screen bg-gray-100 border-1">
         <CreateContentModel open={modelOpen} onClose={() => {
           setOpenModel(false);
         }} />
 
-        <div className="flex justify-end">
-          {<Button variant="secondary" title="Add content" onClick={() => {
+        <div className="flex justify-between">
+          {<Button variant="primary" title="Add content" onClick={() => {
             setOpenModel(true);
           }} startIcon={<PlusIcon />} />}
 
@@ -54,7 +60,7 @@ export function Dashboard() {
 
         <div className="flex flex-wrap gap-5 mt-3">
 
-          {contents.map(({ type, title, link }, index) => < Card
+          {filteredContents.map(({ type, title, link }, index) => < Card
             key={index}
             title={title}
             type={type}

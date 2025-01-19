@@ -4,6 +4,7 @@ import { Input } from "../components/Input"
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function Signin() {
     const usernameRef = useRef<HTMLInputElement>();
@@ -34,6 +35,9 @@ export function Signin() {
                 <Input refrence={passwordRef} placholder="Password" />
                 <div className="flex justify-center">
                     <Button onClick={signin} variant="primary" title="Signin" fullWidth={true} />
+                </div>
+                <div className="text-center">
+                    <Link to={"/signup"} >Don't have account </Link>
                 </div>
             </div>
         </div>
