@@ -14,7 +14,7 @@ const JWT_SECRET = process.env.JWT_SECRET as string;
 
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: "*" }));
 
 app.post("/api/v1/signup", async (req, res) => {
     const signupSchema = z.object({
