@@ -26,6 +26,19 @@ export function Card({ title, link, type }: CardProps) {
     }
   }, [type]);
 
+  useEffect(() => {
+    if (type === "twitter") {
+      const script = document.createElement("script");
+      script.src = "https://platform.twitter.com/widgets.js";
+      script.async = true;
+      document.body.appendChild(script);
+  
+      return () => {
+        document.body.removeChild(script);
+      };
+    }
+  }, [type]);
+
   return (
     <div className="flex flex-col p-4 bg-white shadow-md rounded-lg border border-gray-200 max-w-md w-full">
      
