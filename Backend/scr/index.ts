@@ -81,18 +81,22 @@ app.post("/api/v1/signin", async (req, res) => {
 app.post("/api/v1/content", userMiddleware, async (req, res) => {
     const { type, link, title } = req.body;
 
-    await ContenModel.create({
-        type,
-        link,
-        title,
-        tags: [],
-        //@ts-ignore
-        userId: req.userId
-    });
-
-    res.status(400).json({
-        message: "Cnotent added Successfully"
-    });
+    try {
+        await ContenModel.create({
+            type,
+            link,
+            title,
+            tags: [],
+            //@ts-ignore
+            userId: req.userId
+        });
+    
+        res.status(400).json({
+            message: "Cnotent added Successfully"
+        });
+    } catch (error) {
+        res.status(404).json({ message: "feild to add!" });
+    }
 
 });
 
