@@ -19,9 +19,7 @@ export function Dashboard() {
     refresh();
   }, [modelOpen]);
 
-  const filteredContents = filterType
-    ? contents.filter((content) => content.type === filterType)
-    : contents;
+  const filteredContents = filterType ? contents.filter((content) => content.type === filterType) : contents;
 
 
   return (
@@ -56,7 +54,7 @@ export function Dashboard() {
 
         </div>
 
-        <div className="bg-red-400 w-full h-1"></div>
+        <div className="bg-green-400 w-full h-1"></div>
 
         <div className="flex flex-wrap gap-5 mt-3">
 

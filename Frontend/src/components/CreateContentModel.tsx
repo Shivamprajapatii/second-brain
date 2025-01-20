@@ -69,10 +69,10 @@ export function CreateContentModel({ open, onClose } : CreateContentModelProps) 
                                     }} />
                                     <Button variant={type === ContentType.Instagram ? "primary" : "secondary"} title="Instagram" onClick={() => {
                                         setType(ContentType.Instagram);
-                                    }} />
+                                    }} /> 
                                 </div>
                             </div>
-                            <div className="flex justify-center">
+                            <div className="flex justify-center" onClick={onClose}>
                                 <Button onClick={addContent} title="Add Content" variant="dangour" />
                             </div>
 

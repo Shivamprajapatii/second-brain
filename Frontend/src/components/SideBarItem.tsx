@@ -11,7 +11,7 @@ export default function ({ text, icon, onClick }: {
       <div className="p-2" onClick={onClick}>
         {icon}
       </div>
-      <div>
+      <div className="font-bold tsxt-sm">
         {text}
       </div>
     </div>
