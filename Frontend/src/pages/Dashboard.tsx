@@ -28,7 +28,7 @@ export function Dashboard() {
         < SideBar onSelect={setFilterType} />
       </div>
 
-      <div className="p-4 ml-64 min-h-screen bg-gray-100 border-1">
+      <div className="p-4 ml-64 w-full h-full min-h-screen bg-gray-100 border-1">
         <CreateContentModel open={modelOpen} onClose={() => {
           setOpenModel(false);
         }} />
