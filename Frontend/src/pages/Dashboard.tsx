@@ -31,7 +31,7 @@ export function Dashboard() {
           setOpenModel(false);
         }} />
 
-        <div className="flex justify-between">
+        <div className="flex justify-between mt-4">
           {<Button variant="primary" title="Add content" onClick={() => {
             setOpenModel(true);
           }} startIcon={<PlusIcon />} />}
@@ -56,7 +56,7 @@ export function Dashboard() {
 
         <div className="bg-green-400 w-full h-1"></div>
 
-        <div className="flex flex-wrap gap-5 mt-3">
+        <div className="flex flex-wrap gap-5 mt-8">
 
           {filteredContents.map(({ type, title, link }, index) => < Card
             key={index}
