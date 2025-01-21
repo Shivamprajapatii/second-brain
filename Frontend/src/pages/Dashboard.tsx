@@ -23,8 +23,10 @@ export function Dashboard() {
 
 
   return (
-    <div>
-      < SideBar onSelect={setFilterType} />
+    <div className="flex">
+      <div>
+        < SideBar onSelect={setFilterType} />
+      </div>
 
       <div className="p-4 ml-64 min-h-screen bg-gray-100 border-1">
         <CreateContentModel open={modelOpen} onClose={() => {
