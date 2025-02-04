@@ -23,12 +23,12 @@ export function Dashboard() {
 
 
   return (
-    <div className="flex">
+    <div className="flex h-screen">
       <div>
         < SideBar onSelect={setFilterType} />
       </div>
 
-      <div className="p-4 ml-64 w-full h-full min-h-screen bg-gray-100 border-1">
+      <div className="p-4 ml-64 w-screen min-h-screen bg-gray-100 border-1">
         <CreateContentModel open={modelOpen} onClose={() => {
           setOpenModel(false);
         }} />

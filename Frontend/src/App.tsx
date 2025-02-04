@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Dashboard } from "./pages/Dashboard"
 import { Signin } from "./pages/Signin"
 import { Signup } from "./pages/Signup"
-import Sharepage from "./pages/Sharepage"
+import BrainShare from "./pages/BrainShare"
 
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/signin" element={<Signin />}/>
       <Route path="/" element={<Dashboard />} />
-      <Route path="/brain/share" element={<Sharepage />} />
+      <Route path="/brain/:id" element={<BrainShare />} />
     </Routes>
     </BrowserRouter>
   )
