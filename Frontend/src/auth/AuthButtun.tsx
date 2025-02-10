@@ -12,6 +12,7 @@ const AuthButton = () => {
           variant="dangour"
           onClick={() => {
             localStorage.removeItem("token");
+            window.location.reload();
           }}
         />
 
