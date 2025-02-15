@@ -3,7 +3,7 @@ const app = express();
 import jwt from "jsonwebtoken";
 import { ContenModel, LinkModel, UserModel } from "./db";
 import bcrypt from "bcrypt";
-import { z } from "zod";
+import { boolean, z } from "zod";
 import { v4 as uuidv4 } from 'uuid';
 import { userMiddleware } from "./middleware";
 import dotenv from "dotenv";
@@ -24,15 +24,33 @@ app.post("/api/v1/signup", async (req, res) => {
     const { username, password } = signupSchema.parse(req.body);
 
     try {
+
+        const existingUser = await UserModel.findOne({ username });
+
+        //@ts-ignore
+        if (existingUser) {
+            res.status(403).json({ message: "User already exist" });
+            return;
+        }
+        
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(password, salt);
-        const data = await UserModel.create({
+
+        const newUSer = await UserModel.create({
             username,
             password: hashPassword
         });
 
+        
+        const token = jwt.sign({
+            //@ts-ignore
+            id: newUSer._id,
+        }, JWT_SECRET);
+
+
         res.json({
-            message: "User Signed Up"
+            message: "User Signed Up",
+            token
         });
     } catch (error) {
         res.status(411).json({ message: "user already exist" });
@@ -64,7 +82,10 @@ app.post("/api/v1/signin", async (req, res) => {
                 id: existingUser._id,
             }, JWT_SECRET);
 
-            res.status(200).json(token);
+            res.status(200).json({
+                message : "User Signin successfully",
+                token
+            });
 
         } else {
             res.status(403).json({
