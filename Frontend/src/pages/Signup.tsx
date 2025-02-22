@@ -6,34 +6,52 @@ import { BACKEND_URL } from "../config";
 import { useNavigate, Link } from "react-router-dom";
 
 export function Signup() {
-    const usernameRef = useRef<HTMLInputElement>();
-    const passwordRef = useRef<HTMLInputElement>();
+    const usernameRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
 
-    async function signup(){
+    async function signup() {
         const username = usernameRef.current?.value;
-        const password = usernameRef.current?.value;
-        
-        await axios.post(`${BACKEND_URL}/api/v1/signup`,{
+        const password = passwordRef.current?.value;
+
+        if (!username && !password) {
+            console.error("Username and password are required");
+            return;
+        }
+
+        try {
+            const response = await axios.post(`${BACKEND_URL}/api/v1/signup`, {
                 username,
                 password
-        });
+            });
+            
+            const jwt = response.data.token;
+            if (!jwt) {
+                console.error("Token not received!");
+                return;
+            }
+            
+            localStorage.setItem("token", jwt);
+    
+            navigate("/");
 
-        navigate("/signin");
+        } catch (error) {
+             console.error("Signup Error:");
+        }
     };
 
     return (
         <div className="h-screen w-screen bg-gray-200 flex items-center justify-center">
             <div className="bg-white border min-w-48 p-8 rounded-xl">
-            <h3 className="font-bold text-3xl text-center pb-6">SignUp</h3>
+                <h3 className="font-bold text-3xl text-center pb-6">SignUp</h3>
                 <Input refrence={usernameRef} placholder="Username" />
                 <Input refrence={passwordRef} placholder="Password" />
                 <div className="flex justify-center">
                     <Button onClick={signup} variant="primary" title="Signup" fullWidth={true} />
                 </div>
-                 <div className="text-center">
+                <div className="text-center">
                     <Link to="/signin">already have account</Link>
-                 </div>
+                </div>
             </div>
         </div>
     )
