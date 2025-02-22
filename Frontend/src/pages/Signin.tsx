@@ -20,7 +20,7 @@ export function Signin() {
             password
         });
 
-        const jwt = response.data;
+        const jwt = response.data.token;
         localStorage.setItem("token", jwt);
 
         navigate("/");
