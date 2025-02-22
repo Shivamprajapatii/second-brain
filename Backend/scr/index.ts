@@ -58,6 +58,21 @@ app.post("/api/v1/signup", async (req, res) => {
 
 });
 
+//@ts-ignore
+app.get("/api/v1/check-username/:username", async (req, res) => {
+    const username = req.params.username;
+    console.log(username);
+    const existingUser = await UserModel.findOne({
+        username
+    });
+
+    if (existingUser) {
+        return res.json({ exists: true });
+    } else {
+        return res.json({ exists: false });
+    }
+});
+
 app.post("/api/v1/signin", async (req, res) => {
     const signinSchema = z.object({
         username: z.string().min(3, "Username must be at least 3 characters long"),
