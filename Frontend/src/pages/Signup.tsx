@@ -65,7 +65,7 @@ export function Signup() {
             <div className="bg-white border min-w-48 p-8 rounded-xl">
                 <h3 className="font-bold text-3xl text-center pb-6">SignUp</h3>
                 <p className="items-center text-center">{message}</p>
-                <Input refrence={usernameRef} placholder="Username" onChange={(e) => {
+                <Input refrence={usernameRef} placholder="Username" onChange={(e : any) => {
                     setUsername(e.target.value);
                     checkUsername(e.target.value); // Call function on change
                 }}/>
