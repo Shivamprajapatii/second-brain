@@ -18,7 +18,7 @@ export function Signup() {
 
         try {
             const response = await axios.get<{ exists: boolean }>(
-                `http://localhost:4000/api/v1/check-username/${username}`
+                `${BACKEND_URL}/api/v1/check-username/${username}`
             );
             if (response.data.exists) {
                 setMessage("Username already exists ❌");

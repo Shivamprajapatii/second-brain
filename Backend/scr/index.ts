@@ -3,7 +3,7 @@ const app = express();
 import jwt from "jsonwebtoken";
 import { ContenModel, LinkModel, UserModel } from "./db";
 import bcrypt from "bcrypt";
-import { boolean, z } from "zod";
+import { z } from "zod";
 import { v4 as uuidv4 } from 'uuid';
 import { userMiddleware } from "./middleware";
 import dotenv from "dotenv";
@@ -61,7 +61,7 @@ app.post("/api/v1/signup", async (req, res) => {
 //@ts-ignore
 app.get("/api/v1/check-username/:username", async (req, res) => {
     const username = req.params.username;
-    console.log(username);
+
     const existingUser = await UserModel.findOne({
         username
     });
