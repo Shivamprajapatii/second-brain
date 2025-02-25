@@ -12,7 +12,6 @@ export function Signup() {
 
     const [username, setUsername] = useState("");
     const [message, setMessage] = useState("");
-    
     const checkUsername = async (username: string) => {
         if (!username) return;
 
