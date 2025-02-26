@@ -4,6 +4,7 @@ import { NoteBook } from "../icons/Notebook";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { useEffect } from "react";
+import { data } from "react-router-dom";
 
 interface CardProps {
   title: string;
@@ -63,12 +64,15 @@ export function Card({ title, link, type }: CardProps) {
               axios.delete(`${BACKEND_URL}/api/v1/content`, {
                 headers: {
                   Authorization: localStorage.getItem("token"),
-                },
+                }, 
+                data: {
+                  title
+                }
               });
             }}
             className="text-red-600 hover:text-red-800"
           >
-            <DeleteIcon />
+            <DeleteIcon  />
           </button>
         </div>
       </div>

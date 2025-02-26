@@ -155,11 +155,11 @@ app.get("/api/v1/contents", userMiddleware, async (req, res) => {
 
 //@ts-ignore
 app.delete("/api/v1/content", userMiddleware, async (req, res) => {
-    const { contentId } = req.body;
+    const { title } = req.body;
 
     try {
         const deletedContent = await ContenModel.findOneAndDelete({
-            _id : contentId,
+            title,
             //@ts-ignore
             userId: req.userId
         });
