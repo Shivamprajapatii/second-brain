@@ -12,7 +12,6 @@ import cors from "cors";
 dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
-
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 
