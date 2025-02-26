@@ -4,7 +4,6 @@ import { NoteBook } from "../icons/Notebook";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { useEffect } from "react";
-import { data } from "react-router-dom";
 
 interface CardProps {
   title: string;

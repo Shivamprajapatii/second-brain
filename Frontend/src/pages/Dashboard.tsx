@@ -10,6 +10,7 @@ import axios from "axios"
 import { BACKEND_URL } from "../config"
 import AuthButton from "../auth/AuthButtun"
 
+
 export function Dashboard() {
   const [modelOpen, setOpenModel] = useState(false);
   const { contents, refresh } = useContent();
