@@ -5,6 +5,7 @@ import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { useEffect } from "react";
 
+
 interface CardProps {
   title: string;
   link: string;
@@ -12,6 +13,7 @@ interface CardProps {
 }
 
 export function Card({ title, link, type }: CardProps) {
+
   // Load Instagram script
   useEffect(() => {
     if (type === "instagram") {
@@ -59,15 +61,17 @@ export function Card({ title, link, type }: CardProps) {
             <ShareIcon />
           </a>
           <button
-            onClick={() => {
-              axios.delete(`${BACKEND_URL}/api/v1/content`, {
+            onClick={async () => {
+             await axios.delete(`${BACKEND_URL}/api/v1/content`, {
                 headers: {
                   Authorization: localStorage.getItem("token"),
                 }, 
                 data: {
                   title
                 }
-              });
+              })
+              window.location.reload();
+              
             }}
             className="text-red-600 hover:text-red-800"
           >
