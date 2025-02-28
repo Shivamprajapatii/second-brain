@@ -71,7 +71,6 @@ export function Card({ title, link, type }: CardProps) {
                 }
               })
               window.location.reload();
-              
             }}
             className="text-red-600 hover:text-red-800"
           >
