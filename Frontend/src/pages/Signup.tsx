@@ -74,7 +74,7 @@ export function Signup() {
                     <Button onClick={signup} variant="primary" title="Signup" fullWidth={true} />
                 </div>
                 <div className="text-center underline">
-                    <Link to="/signin">already have account</Link>
+                    <Link to="/signin">Already have account</Link>
                 </div>
             </div>
         </div>
