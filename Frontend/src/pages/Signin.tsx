@@ -36,7 +36,9 @@ export function Signin() {
                 <div className="flex justify-center">
                     <Button onClick={signin} variant="primary" title="Signin" fullWidth={true} />
                 </div>
-              
+                <p className="mt-2 text-sm text-gray-600 text-center">
+                    Don't have an account? <Link to="/signUp" className="text-blue-500 hover:underline">SignUp</Link>
+                </p>
             </div>
         </div>
     )
