@@ -43,19 +43,19 @@ export function Signup() {
                 username,
                 password
             });
-            
+
             const jwt = response.data.token;
             if (!jwt) {
                 console.error("Token not received!");
                 return;
             }
-            
+
             localStorage.setItem("token", jwt);
-    
+
             navigate("/");
 
         } catch (error) {
-             console.error("Signup Error:");
+            console.error("Signup Error:");
         }
     };
 
@@ -64,18 +64,18 @@ export function Signup() {
             <div className="bg-white border min-w-48 p-8 rounded-xl">
                 <h3 className="font-bold text-3xl text-center pb-6">SignUp</h3>
                 <p className="items-center text-center">{message}</p>
-                <Input refrence={usernameRef} placholder="Username" onChange={(e : any) => {
+                <Input refrence={usernameRef} placholder="Username" onChange={(e: any) => {
                     setUsername(e.target.value);
                     checkUsername(e.target.value); // Call function on change
-                }}/>
+                }} />
 
                 <Input refrence={passwordRef} placholder="Password" />
                 <div className="flex justify-center">
                     <Button onClick={signup} variant="primary" title="Signup" fullWidth={true} />
                 </div>
-                <div className="text-center underline">
-                    <Link to="/signin">Already have account</Link>
-                </div>
+                <p className="mt-2 text-sm text-gray-600 text-center">
+                    Already have an account? <Link to="/signIn" className="text-blue-500 hover:underline">SignIn</Link>
+                </p>
             </div>
         </div>
     )
