@@ -10,7 +10,7 @@ export default defineConfig({
   server : {
     port: 5173,
   },
-  base: './', // Ensure relative paths for assets
+  base: '/', // Ensure relative paths for assets
   resolve: {
     alias: {
       '@': '/src',
