@@ -1,7 +1,10 @@
 import React from 'react';
 import { Brain, ArrowRight, Link2, BookMarked, Share2, Database } from 'lucide-react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function LandingPage() {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
       {/* Navbar */}
@@ -10,8 +13,10 @@ function LandingPage() {
           <Brain className="w-10 h-10 text-purple-600" />
           <h1 className="text-2xl font-bold text-gray-800">Second Brain</h1>
         </div>
-        <button className="bg-purple-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-700 transition-colors">
-          <a href="/signup">Sign Up Now</a>
+        <button onClick={() =>{
+          navigate("/signup")
+        }} className="bg-purple-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-700 transition-colors">
+          Sign Up Now
         </button>
       </nav>
 
@@ -24,8 +29,10 @@ function LandingPage() {
           Store, organize, and access all your important links in one place. 
           Never lose a valuable resource again with your personal Second Brain.
         </p>
-        <button className="bg-purple-600 text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center space-x-2 mx-auto hover:bg-purple-700 transition-colors">
-          <span><a href="/signin">Get Started</a></span>
+        <button onClick={() => {
+          navigate("/signin")
+        }} className="bg-purple-600 text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center space-x-2 mx-auto hover:bg-purple-700 transition-colors">
+          <span>Get Started</span>
           <ArrowRight className="w-5 h-5" />
         </button>
       </header>
@@ -65,8 +72,10 @@ function LandingPage() {
           <p className="text-lg mb-8 max-w-2xl mx-auto">
             Join thousands of users who are already using Second Brain to organize their digital life.
           </p>
-          <button className="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-purple-50 transition-colors">
-            <a href="/signup">Start Free Trial</a>
+          <button onClick={()=>{
+            navigate("/signup")
+          }} className="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-purple-50 transition-colors">
+            Start Free Trial
           </button>
         </div>
       </section>
