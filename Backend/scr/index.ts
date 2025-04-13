@@ -94,6 +94,7 @@ app.post("/api/v1/signin", async (req, res) => {
         if (passMatch) {
             const token = jwt.sign({
                 id: existingUser._id,
+                name : existingUser.username
             }, JWT_SECRET);
 
             res.status(200).json({

@@ -9,20 +9,30 @@ import { useContent } from "../hooks/useContent"
 import axios from "axios"
 import { BACKEND_URL } from "../config"
 import AuthButton from "../auth/AuthButtun"
+import { jwtDecode } from "jwt-decode"
 
 
 export function Dashboard() {
   const [modelOpen, setOpenModel] = useState(false);
   const { contents, refresh } = useContent();
   const [filterType, setFilterType] = useState<string | null>(null);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     refresh();
   }, [modelOpen]);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if(token){
+      const decoded = jwtDecode(token);
+      //@ts-ignore
+      setUsername(decoded.name);
+    }
+  },["/"]);
+
   const filteredContents = filterType ? contents.filter((content) => content.type === filterType) : contents;
-
-
+  let token = localStorage.getItem("token") as string;
   return (
     <div className="flex h-screen">
       <div>
@@ -56,8 +66,6 @@ export function Dashboard() {
           <AuthButton />
 
         </div>
-
-        <div className="bg-green-400 w-full h-1"></div>
 
         <div className="flex flex-wrap gap-5 mt-8">
 
