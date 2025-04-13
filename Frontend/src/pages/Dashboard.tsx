@@ -29,7 +29,7 @@ export function Dashboard() {
       //@ts-ignore
       setUsername(decoded.name);
     }
-  },["/"]);
+  },["/dashboard"]);
 
   const filteredContents = filterType ? contents.filter((content) => content.type === filterType) : contents;
   return (
@@ -62,7 +62,7 @@ export function Dashboard() {
 
           }} />}
 
-          <AuthButton />
+        <AuthButton />
 
         </div>
 

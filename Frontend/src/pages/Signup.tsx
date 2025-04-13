@@ -52,7 +52,7 @@ export function Signup() {
 
             localStorage.setItem("token", jwt);
 
-            navigate("/");
+            navigate("/dashboard");
 
         } catch (error) {
             console.error("Signup Error:");

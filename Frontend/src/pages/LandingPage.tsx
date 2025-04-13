@@ -11,7 +11,7 @@ function LandingPage() {
           <h1 className="text-2xl font-bold text-gray-800">Second Brain</h1>
         </div>
         <button className="bg-purple-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-700 transition-colors">
-          Sign Up Now
+          <a href="/signup">Sign Up Now</a>
         </button>
       </nav>
 
@@ -25,7 +25,7 @@ function LandingPage() {
           Never lose a valuable resource again with your personal Second Brain.
         </p>
         <button className="bg-purple-600 text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center space-x-2 mx-auto hover:bg-purple-700 transition-colors">
-          <span>Get Started</span>
+          <span><a href="/signin">Get Started</a></span>
           <ArrowRight className="w-5 h-5" />
         </button>
       </header>
@@ -66,7 +66,7 @@ function LandingPage() {
             Join thousands of users who are already using Second Brain to organize their digital life.
           </p>
           <button className="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-purple-50 transition-colors">
-            Start Free Trial
+            <a href="/signup">Start Free Trial</a>
           </button>
         </div>
       </section>
