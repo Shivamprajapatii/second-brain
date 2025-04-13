@@ -3,6 +3,7 @@ import { Dashboard } from "./pages/Dashboard"
 import { Signin } from "./pages/Signin"
 import { Signup } from "./pages/Signup"
 import BrainShare from "./pages/BrainShare"
+import LandingPage from "./pages/LandingPage"
 
 
 function App() {
@@ -11,7 +12,8 @@ function App() {
     <Routes>
       <Route path="/signup" element={<Signup />} />
       <Route path="/signin" element={<Signin />}/>
-      <Route path="/" element={<Dashboard />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/dashboard" element={< Dashboard />} />
       <Route path="/api/v1/brain/:id" element={<BrainShare />} />
     </Routes>
     </BrowserRouter>

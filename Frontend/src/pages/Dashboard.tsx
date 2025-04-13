@@ -32,7 +32,6 @@ export function Dashboard() {
   },["/"]);
 
   const filteredContents = filterType ? contents.filter((content) => content.type === filterType) : contents;
-  let token = localStorage.getItem("token") as string;
   return (
     <div className="flex h-screen">
       <div>
@@ -66,6 +65,8 @@ export function Dashboard() {
           <AuthButton />
 
         </div>
+
+        <div className="bg-green-400 w-full h-1">Hello .. <h1>{username}</h1></div>
 
         <div className="flex flex-wrap gap-5 mt-8">
 
